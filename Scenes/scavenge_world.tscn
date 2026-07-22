@@ -1,0 +1,45 @@
+[gd_scene format=3 uid="uid://b7a8dvxmi81rm"]
+
+[ext_resource type="Script" uid="uid://0tmyeltnpksf" path="res://Scripts/character.gd" id="1_rc5js"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_4gjug"]
+radius = 100.0
+height = 200.0
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_4gjug"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_4gjug"]
+size = Vector3(8.220703, 1, 10.014648)
+
+[sub_resource type="BoxMesh" id="BoxMesh_4gjug"]
+size = Vector3(7.675537, 1, 10.102539)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_8oc6l"]
+size = Vector3(10.064453, 4.447754, 12.252197)
+
+[node name="ScavengeWorld" type="Node3D" unique_id=663056826]
+
+[node name="Planet" type="MeshInstance3D" parent="." unique_id=1396310741]
+mesh = SubResource("SphereMesh_4gjug")
+
+[node name="Character" type="Node3D" parent="." unique_id=1592258959]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 101.90988, 0)
+script = ExtResource("1_rc5js")
+
+[node name="CharacterMesh" type="MeshInstance3D" parent="Character" unique_id=169385690]
+mesh = SubResource("CapsuleMesh_4gjug")
+
+[node name="Launchpad" type="StaticBody3D" parent="." unique_id=1830330975]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 100.30418, 0)
+
+[node name="LaunchpadCollider" type="CollisionShape3D" parent="Launchpad" unique_id=1560752463]
+shape = SubResource("BoxShape3D_4gjug")
+
+[node name="Mesh" type="MeshInstance3D" parent="Launchpad" unique_id=1619506336]
+mesh = SubResource("BoxMesh_4gjug")
+
+[node name="SceneTransitionArea" type="Area3D" parent="Launchpad" unique_id=1762603729]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Launchpad/SceneTransitionArea" unique_id=189058885]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.723877, 0)
+shape = SubResource("BoxShape3D_8oc6l")
