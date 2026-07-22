@@ -1,12 +1,47 @@
 [gd_scene format=3 uid="uid://b7a8dvxmi81rm"]
 
 [ext_resource type="Script" uid="uid://0tmyeltnpksf" path="res://Scripts/character.gd" id="1_rc5js"]
+[ext_resource type="Material" uid="uid://h6bdjub878s0" path="res://debug_red.tres" id="2_fbs2c"]
+[ext_resource type="Material" uid="uid://ckggamvt8n6js" path="res://debug_green.tres" id="3_dk04b"]
+[ext_resource type="Material" uid="uid://eedayvusxr1p" path="res://debug_blue.tres" id="4_ewacc"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_4gjug"]
 radius = 100.0
 height = 200.0
 
+[sub_resource type="SphereShape3D" id="SphereShape3D_4gjug"]
+radius = 100.0
+
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_4gjug"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_4gjug"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ie18w"]
+size = Vector3(1.3261719, 0.7225952, 1.2070313)
+
+[sub_resource type="BoxMesh" id="BoxMesh_8oc6l"]
+material = ExtResource("2_fbs2c")
+size = Vector3(0.20507813, 0.24902344, 6.160095)
+
+[sub_resource type="BoxMesh" id="BoxMesh_ie18w"]
+material = ExtResource("2_fbs2c")
+size = Vector3(0.57421875, 0.49804688, 0.4765625)
+
+[sub_resource type="BoxMesh" id="BoxMesh_xpmmb"]
+material = ExtResource("3_dk04b")
+size = Vector3(0.20507813, 0.24902344, 6.160095)
+
+[sub_resource type="BoxMesh" id="BoxMesh_046qd"]
+material = ExtResource("3_dk04b")
+size = Vector3(0.57421875, 0.49804688, 0.4765625)
+
+[sub_resource type="BoxMesh" id="BoxMesh_thvfy"]
+material = ExtResource("4_ewacc")
+size = Vector3(0.20507813, 0.24902344, 6.160095)
+
+[sub_resource type="BoxMesh" id="BoxMesh_hgpqo"]
+material = ExtResource("4_ewacc")
+size = Vector3(0.57421875, 0.49804688, 0.4765625)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_4gjug"]
 size = Vector3(8.220703, 1, 10.014648)
@@ -17,20 +52,80 @@ size = Vector3(7.675537, 1, 10.102539)
 [sub_resource type="BoxShape3D" id="BoxShape3D_8oc6l"]
 size = Vector3(10.064453, 4.447754, 12.252197)
 
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ie18w"]
+
+[sub_resource type="Sky" id="Sky_8oc6l"]
+sky_material = SubResource("ProceduralSkyMaterial_ie18w")
+
+[sub_resource type="Environment" id="Environment_4gjug"]
+background_mode = 2
+sky = SubResource("Sky_8oc6l")
+
 [node name="ScavengeWorld" type="Node3D" unique_id=663056826]
 
-[node name="Planet" type="MeshInstance3D" parent="." unique_id=1396310741]
+[node name="Planet" type="Node3D" parent="." unique_id=1471458438]
+
+[node name="PlanetMesh" type="MeshInstance3D" parent="Planet" unique_id=1396310741]
 mesh = SubResource("SphereMesh_4gjug")
 
-[node name="Character" type="Node3D" parent="." unique_id=1592258959]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 101.90988, 0)
+[node name="StaticBody3D" type="StaticBody3D" parent="Planet" unique_id=1963323284]
+collision_layer = 3
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Planet/StaticBody3D" unique_id=2079865930]
+shape = SubResource("SphereShape3D_4gjug")
+
+[node name="Character" type="CharacterBody3D" parent="." unique_id=1851040288 node_paths=PackedStringArray("planet")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 101.91, 0)
 script = ExtResource("1_rc5js")
+planet = NodePath("../Planet/StaticBody3D")
 
 [node name="CharacterMesh" type="MeshInstance3D" parent="Character" unique_id=169385690]
 mesh = SubResource("CapsuleMesh_4gjug")
 
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Character" unique_id=1630405477]
+shape = SubResource("CapsuleShape3D_4gjug")
+
+[node name="Camera3D" type="Camera3D" parent="Character" unique_id=2088995928]
+transform = Transform3D(1, 0, 0, 0, 0.3170711, 0.9484018, 0, -0.9484018, 0.3170711, 0, 20.477982, 9.133962)
+fov = 60.0
+
+[node name="GroundDetector" type="Area3D" parent="Character" unique_id=281630813]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.8400345, 0)
+collision_mask = 2
+
+[node name="GroundDetectorShape" type="CollisionShape3D" parent="Character/GroundDetector" unique_id=407945480]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.030181885, 0)
+shape = SubResource("BoxShape3D_ie18w")
+
+[node name="Debug" type="Node3D" parent="Character" unique_id=1372953959]
+visible = false
+
+[node name="XIndicator" type="MeshInstance3D" parent="Character/Debug" unique_id=1012748753]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 0)
+mesh = SubResource("BoxMesh_8oc6l")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Character/Debug/XIndicator" unique_id=2005294077]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3.360725)
+mesh = SubResource("BoxMesh_ie18w")
+
+[node name="YIndicator" type="MeshInstance3D" parent="Character/Debug" unique_id=1117435329]
+transform = Transform3D(1.9106855e-15, 1, 4.371139e-08, 4.371139e-08, -4.371139e-08, 1, 1, 0, -4.371139e-08, 0, 0, 0)
+mesh = SubResource("BoxMesh_xpmmb")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Character/Debug/YIndicator" unique_id=406334139]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3.360725)
+mesh = SubResource("BoxMesh_046qd")
+
+[node name="ZIndicator" type="MeshInstance3D" parent="Character/Debug" unique_id=1514160042]
+mesh = SubResource("BoxMesh_thvfy")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Character/Debug/ZIndicator" unique_id=1908426990]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3.360725)
+mesh = SubResource("BoxMesh_hgpqo")
+
 [node name="Launchpad" type="StaticBody3D" parent="." unique_id=1830330975]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 100.30418, 0)
+collision_layer = 3
 
 [node name="LaunchpadCollider" type="CollisionShape3D" parent="Launchpad" unique_id=1560752463]
 shape = SubResource("BoxShape3D_4gjug")
@@ -43,3 +138,9 @@ mesh = SubResource("BoxMesh_4gjug")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Launchpad/SceneTransitionArea" unique_id=189058885]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.723877, 0)
 shape = SubResource("BoxShape3D_8oc6l")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=568144684]
+environment = SubResource("Environment_4gjug")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=795722301]
+transform = Transform3D(1, 0, 0, 0, 0.64549017, 0.76376855, 0, -0.76376855, 0.64549017, 0, 0, 0)
