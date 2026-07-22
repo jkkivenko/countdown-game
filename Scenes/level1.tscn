@@ -1,3 +1,56 @@
 [gd_scene format=3 uid="uid://dewu16qgkxemy"]
 
+[ext_resource type="Texture2D" uid="uid://bamaxig0cirtb" path="res://icon.svg" id="1_4hvuo"]
+[ext_resource type="Script" uid="uid://cv6hwdyt4rfon" path="res://Scripts/player.gd" id="2_vly50"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_36t05"]
+size = Vector2(10000, 100)
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_vly50"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_36t05"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_36t05"]
+
+[sub_resource type="GDScript" id="GDScript_vly50"]
+script/source = "extends Area2D
+"
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_36t05"]
+
 [node name="Level1" type="Node2D" unique_id=256933563]
+
+[node name="Ground" type="StaticBody2D" parent="." unique_id=468826947]
+position = Vector2(0, 50)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ground" unique_id=1602161110]
+shape = SubResource("RectangleShape2D_36t05")
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="Ground" unique_id=589945443]
+material = SubResource("CanvasItemMaterial_vly50")
+scale = Vector2(10000, 100)
+mesh = SubResource("QuadMesh_36t05")
+
+[node name="Player" type="RigidBody2D" parent="." unique_id=1659390234]
+position = Vector2(95, -88)
+script = ExtResource("2_vly50")
+fuel = 15.0
+
+[node name="Camera2D" type="Camera2D" parent="Player" unique_id=405475908]
+position = Vector2(-1, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player" unique_id=2020967752]
+shape = SubResource("CapsuleShape2D_36t05")
+
+[node name="Sprite2D" type="Sprite2D" parent="Player" unique_id=893039636]
+texture = ExtResource("1_4hvuo")
+
+[node name="Atmosphere" type="Area2D" parent="." unique_id=787167208]
+position = Vector2(0, -1000)
+gravity_space_override = 3
+script = SubResource("GDScript_vly50")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Atmosphere" unique_id=997518432]
+shape = SubResource("WorldBoundaryShape2D_36t05")
+
+[connection signal="body_exited" from="Atmosphere" to="Player" method="_on_earth_body_exited"]
