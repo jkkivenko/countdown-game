@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://brgv7q0usufgk" path="res://Scripts/world_collectible.gd" id="1_c8bwx"]
 [ext_resource type="Material" uid="uid://ckggamvt8n6js" path="res://Materials/debug_green.tres" id="2_w5m7u"]
+[ext_resource type="Material" uid="uid://0oomwtsejl8i" path="res://Materials/yellow.tres" id="3_a1ulq"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_8cae6"]
 resource_local_to_scene = true
@@ -15,19 +16,15 @@ size = Vector3(0.20507813, 0.24902344, 6.160095)
 material = ExtResource("2_w5m7u")
 size = Vector3(0.57421875, 0.49804688, 0.4765625)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_w5m7u"]
-albedo_color = Color(1, 1, 0, 1)
-emission_enabled = true
-
 [sub_resource type="BoxMesh" id="BoxMesh_ie18w"]
-material = SubResource("StandardMaterial3D_w5m7u")
+material = ExtResource("3_a1ulq")
 size = Vector3(0.2, 0.2, 0.2)
 
 [node name="Collectible" type="Node3D" unique_id=1156204358]
 script = ExtResource("1_c8bwx")
 
 [node name="Pivot" type="Node3D" parent="." unique_id=705275210]
-transform = Transform3D(0.8403734, 0, 0.54200774, 0, 1, 0, -0.54200774, 0, 0.8403734, 0, -0.7521957, 0)
+transform = Transform3D(0.6678727, 0, -0.7442754, 0, 1, 0, 0.7442754, 0, 0.6678727, 0, 0.7472881, 0)
 
 [node name="PlayerDetector" type="Area3D" parent="." unique_id=1861375595]
 collision_layer = 4

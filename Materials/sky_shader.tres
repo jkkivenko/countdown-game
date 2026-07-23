@@ -1,0 +1,9 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://d0s3e5imxsuyk"]
+
+[ext_resource type="Shader" uid="uid://bnx5v88f55cvd" path="res://Materials/sky_shader.gdshader" id="1_dr503"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_dr503")
+shader_parameter/colour = Vector3(0.5, 0.5, 0.96)
+shader_parameter/shadowiness = 0.6
