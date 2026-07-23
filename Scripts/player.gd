@@ -18,7 +18,7 @@ func _process(_delta: float) -> void:
 		fuel -= _delta
 		print(fuel)
 		print(-position.y)
-	
+
 
 
 func _on_earth_body_exited(body: Node2D) -> void:

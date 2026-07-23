@@ -1,7 +1,10 @@
 [gd_scene format=3 uid="uid://dewu16qgkxemy"]
 
 [ext_resource type="Texture2D" uid="uid://bamaxig0cirtb" path="res://Assets/icon.svg" id="1_4hvuo"]
-[ext_resource type="Script" uid="uid://x4431d157un1" path="res://Scripts/player.gd" id="2_vly50"]
+[ext_resource type="Script" uid="uid://cv6hwdyt4rfon" path="res://Scripts/player.gd" id="2_vly50"]
+[ext_resource type="Script" uid="uid://ckdbwjns3shbi" path="res://Scripts/thruster.gd" id="3_c5erv"]
+[ext_resource type="Script" uid="uid://dyvgdds724ncp" path="res://Scripts/old_thruster.gd" id="3_y4dr7"]
+[ext_resource type="Script" uid="uid://cteomffqq7n4u" path="res://Scripts/thruster_sprite.gd" id="4_didp7"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_36t05"]
 size = Vector2(10000, 100)
@@ -18,6 +21,8 @@ script/source = "extends Area2D
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_36t05"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_icqfx"]
+
 [node name="Level1" type="Node2D" unique_id=256933563]
 
 [node name="Ground" type="StaticBody2D" parent="." unique_id=468826947]
@@ -31,18 +36,18 @@ material = SubResource("CanvasItemMaterial_vly50")
 scale = Vector2(10000, 100)
 mesh = SubResource("QuadMesh_36t05")
 
-[node name="Player" type="RigidBody2D" parent="." unique_id=1659390234]
+[node name="Rocketship" type="RigidBody2D" parent="." unique_id=1659390234]
 position = Vector2(95, -88)
 script = ExtResource("2_vly50")
 fuel = 15.0
 
-[node name="Camera2D" type="Camera2D" parent="Player" unique_id=405475908]
+[node name="Camera2D" type="Camera2D" parent="Rocketship" unique_id=405475908]
 position = Vector2(-1, 0)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Player" unique_id=2020967752]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Rocketship" unique_id=2020967752]
 shape = SubResource("CapsuleShape2D_36t05")
 
-[node name="Sprite2D" type="Sprite2D" parent="Player" unique_id=893039636]
+[node name="Sprite2D" type="Sprite2D" parent="Rocketship" unique_id=893039636]
 texture = ExtResource("1_4hvuo")
 
 [node name="Atmosphere" type="Area2D" parent="." unique_id=787167208]
@@ -53,4 +58,23 @@ script = SubResource("GDScript_vly50")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Atmosphere" unique_id=997518432]
 shape = SubResource("WorldBoundaryShape2D_36t05")
 
-[connection signal="body_exited" from="Atmosphere" to="Player" method="_on_earth_body_exited"]
+[node name="OldThruster" type="RigidBody2D" parent="." unique_id=1438749587]
+position = Vector2(-133, -152)
+script = ExtResource("3_y4dr7")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="OldThruster" unique_id=1243663275]
+shape = SubResource("RectangleShape2D_icqfx")
+
+[node name="ThrusterSprite" type="Sprite2D" parent="OldThruster" unique_id=226243898]
+texture = ExtResource("1_4hvuo")
+script = ExtResource("4_didp7")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=811735009]
+
+[node name="Thruster" type="TextureRect" parent="CanvasLayer" unique_id=1294025871]
+offset_right = 128.0
+offset_bottom = 128.0
+texture = ExtResource("1_4hvuo")
+script = ExtResource("3_c5erv")
+
+[connection signal="body_exited" from="Atmosphere" to="Rocketship" method="_on_earth_body_exited"]
