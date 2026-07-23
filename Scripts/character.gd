@@ -1,24 +1,23 @@
 extends CharacterBody3D
 
 @export_category("Movement")
-@export var max_speed := 100.0
-@export var acceleration := 0.01
-@export var jump_strength := 50.0
+@export var max_speed := 20.0
+@export var acceleration := 0.02
+@export var jump_strength := 20.0
 @export var gravity := 1.0
-#@export_category("Camera")
-#@export var movement_camera_shift_amount := 1.0
-#@export var movement_camera_rotation_amount := 1.0
-@export_category("References")
-@export var planet : StaticBody3D
+@export_category("Camera")
+@export var mouse_sensitivity := 2.0
 
-#var initial_camera_pos : Vector3
-#var initial_camera_rotation : Vector3
+var mouse_movement : Vector2
 
-#func _init() -> void:
-	#initial_camera_pos = $Camera3D.position
-	#initial_camera_rotation = $Camera3D.rotation
+func _ready() -> void:
+	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 func _process(_delta: float) -> void:
+	if Input.is_action_just_pressed("Pause"):
+		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+
+func _physics_process(_delta: float) -> void:
 	# Creates a 2D vector which stores the direction the player is accelerating in
 	var target_velocity = Vector2.ZERO
 	if Input.is_action_pressed("Forward3D"):
@@ -42,15 +41,21 @@ func _process(_delta: float) -> void:
 	# Finally combines them all.
 	velocity = x_velocity + y_velocity + z_velocity
 	move_and_slide()
-	
 	# Other behaviours that have to happen every frame
 	fix_rotation()
-	animate_camera()
-	
+
+func _input(event: InputEvent) -> void:
+	if event is InputEventMouseMotion:
+		mouse_movement = event.relative
 
 func fix_rotation() -> void:
+	var turning = mouse_movement.x * -0.001 * mouse_sensitivity
+	mouse_movement = Vector2.ZERO
 	var up_dir = global_position.normalized()
 	var backward_dir = global_transform.basis.z.slide(up_dir).normalized()
+	
+	backward_dir = backward_dir.rotated(up_dir, turning) # turning
+	
 	var right_dir = up_dir.cross(backward_dir)
 	basis.y = up_dir
 	basis.z = backward_dir
