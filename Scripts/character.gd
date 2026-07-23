@@ -10,13 +10,6 @@ extends CharacterBody3D
 
 var mouse_movement : Vector2
 
-func _ready() -> void:
-	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-
-func _process(_delta: float) -> void:
-	if Input.is_action_just_pressed("Pause"):
-		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-
 func _physics_process(_delta: float) -> void:
 	# Creates a 2D vector which stores the direction the player is accelerating in
 	var target_velocity = Vector2.ZERO
