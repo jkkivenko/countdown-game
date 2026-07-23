@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Collectible" format=3 uid="uid://dhvnyf8ot18r2"]
+
+[ext_resource type="Script" uid="uid://db768yxuilkos" path="res://Scripts/Types/collectible.gd" id="1_g2bc4"]
+[ext_resource type="PackedScene" uid="uid://dkry64388i4q3" path="res://Assets/3D/fuel tank.glb" id="1_rh4hm"]
+
+[resource]
+script = ExtResource("1_g2bc4")
+model = ExtResource("1_rh4hm")
+collectible_name = "Fuel Tank"
+metadata/_custom_type_script = "uid://db768yxuilkos"

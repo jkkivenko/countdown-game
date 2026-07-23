@@ -1,7 +1,0 @@
-[gd_scene format=3 uid="uid://du3bi2dpssdrd"]
-
-[ext_resource type="PackedScene" uid="uid://bjpgfqwe35ltc" path="res://Assets/3D/RS25.glb" id="1_k14ow"]
-
-[node name="BigEngine" type="Node3D" unique_id=1156204358]
-
-[node name="RS25" parent="." unique_id=1958238636 instance=ExtResource("1_k14ow")]

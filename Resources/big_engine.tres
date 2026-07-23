@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Collectible" format=3 uid="uid://cx2pcnh4gsntp"]
+
+[ext_resource type="PackedScene" uid="uid://bjpgfqwe35ltc" path="res://Assets/3D/RS25.glb" id="1_1vnfc"]
+[ext_resource type="Script" uid="uid://db768yxuilkos" path="res://Scripts/Types/collectible.gd" id="1_cx3am"]
+
+[resource]
+script = ExtResource("1_cx3am")
+model = ExtResource("1_1vnfc")
+collectible_name = "Big Engine"
+metadata/_custom_type_script = "uid://db768yxuilkos"

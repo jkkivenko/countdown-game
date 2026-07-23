@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Collectible" format=3 uid="uid://75obekakp76v"]
+
+[ext_resource type="PackedScene" uid="uid://cbkm47arj5g4" path="res://Assets/3D/SPS.glb" id="1_ir7oy"]
+[ext_resource type="Script" uid="uid://db768yxuilkos" path="res://Scripts/Types/collectible.gd" id="1_jpi5w"]
+
+[resource]
+script = ExtResource("1_jpi5w")
+model = ExtResource("1_ir7oy")
+collectible_name = "Small Engine"
+metadata/_custom_type_script = "uid://db768yxuilkos"
