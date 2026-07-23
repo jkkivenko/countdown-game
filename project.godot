@@ -19,6 +19,7 @@ config/icon="res://Assets/icon.svg"
 
 Collectibles="*uid://brg3k4rjfwbdj"
 MouseController="*uid://iuvy4i211r1s"
+CountdownController="*uid://cjhv0jcb27o34"
 
 [display]
 
